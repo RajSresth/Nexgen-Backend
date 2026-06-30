@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT) || 587,
+  port: +process.env.SMTP_PORT || 587,
   secure: process.env.SMTP_PORT === "465",
   auth: {
     user: process.env.SMTP_USER,
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendVerificationEmail = async (toEmail, verifyUrl) => {
   await transporter.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    from: process.env.SMTP_USER,
     to: toEmail,
     subject: "Verify your email address",
     html: `
@@ -29,3 +29,5 @@ export const sendVerificationEmail = async (toEmail, verifyUrl) => {
     `,
   });
 };
+
+

@@ -159,6 +159,12 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
 
+    if (!user.isEmailVerified) {
+      return res
+        .status(403)
+        .json({ message: "Please verify your email before logging in" });
+    }
+
     const accessToken = await generateAccessToken(user._id, user.role);
     const refreshToken = await generateRefreshToken(user._id, user.role);
 
@@ -193,8 +199,6 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {};
-
-export const verifyEmail = async (req, res) => {};
 
 export const forgetPassword = async (req, res) => {};
 

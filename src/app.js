@@ -17,8 +17,8 @@ app.use(
 );
 app.use(express.json());
 app.use("/api/v1", globalApiLimiter);
-
 app.use("/api/v1/auth", authRoutes);
+
 
 // global error handler middleware
 
